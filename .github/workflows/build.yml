@@ -1,4 +1,4 @@
-name: Build Dashuai V1.0.3 APK
+name: Build Dashuai V1.0.4 APK
 on:
   workflow_dispatch:
   push:
@@ -18,8 +18,8 @@ jobs:
           gradle-version: '8.9'
       - name: Unpack and test
         run: |
-          unzip -t Dashuai_V1_0_3_fixed.zip
-          unzip -o Dashuai_V1_0_3_fixed.zip
+          unzip -t Dashuai_V1_0_4.zip
+          unzip -o Dashuai_V1_0_4.zip
           cd Dale
           mkdir -p test-classes
           SRC=app/src/main/java/com/dale/todo
@@ -81,6 +81,6 @@ jobs:
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: Dashuai-V1.0.3-APK
+          name: Dashuai-V1.0.4-APK
           path: Dale/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
