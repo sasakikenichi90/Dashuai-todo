@@ -1,4 +1,4 @@
-name: Build Dale V10.1.1 APK
+name: Build Dashuai V1.0.2 APK
 on:
   workflow_dispatch:
   push:
@@ -18,8 +18,8 @@ jobs:
           gradle-version: '8.9'
       - name: Unpack and test
         run: |
-          unzip -t Dale_V10_1_1.zip
-          unzip -o Dale_V10_1_1.zip
+          unzip -t Dashuai_V1_0_2.zip
+          unzip -o Dashuai_V1_0_2.zip
           cd Dale
           mkdir -p test-classes
           SRC=app/src/main/java/com/dale/todo
@@ -64,14 +64,14 @@ jobs:
           mv vosk-model-small-cn-0.22 Dale/app/src/main/assets/model-cn
       - name: Build signed APK
         env:
-          DALE_SIGNING: ${{ secrets.DALE_SIGNING }}
+          DASHUAI_SIGNING: ${{ secrets.DASHUAI_SIGNING }}
         run: |
-          test -n "$DALE_SIGNING"
-          export DALE_PASSWORD="${DALE_SIGNING%%:*}"
-          echo "::add-mask::$DALE_PASSWORD"
-          export DALE_KEYSTORE="$RUNNER_TEMP/dale.p12"
-          printf '%s' "${DALE_SIGNING#*:}" | base64 -d > "$DALE_KEYSTORE"
-          chmod 600 "$DALE_KEYSTORE"
+          test -n "$DASHUAI_SIGNING"
+          export DASHUAI_PASSWORD="${DASHUAI_SIGNING%%:*}"
+          echo "::add-mask::$DASHUAI_PASSWORD"
+          export DASHUAI_KEYSTORE="$RUNNER_TEMP/dashuai.p12"
+          printf '%s' "${DASHUAI_SIGNING#*:}" | base64 -d > "$DASHUAI_KEYSTORE"
+          chmod 600 "$DASHUAI_KEYSTORE"
           cd Dale
           gradle assembleRelease --stacktrace
       - name: Verify signature
@@ -81,6 +81,6 @@ jobs:
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: Dale-V10.1.1-APK
+          name: Dashuai-V1.0.2-APK
           path: Dale/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
