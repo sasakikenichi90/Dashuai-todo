@@ -18,8 +18,8 @@ jobs:
           gradle-version: '8.9'
       - name: Unpack and test
         run: |
-          unzip -t Dashuai_V1_0_2.zip
-          unzip -o Dashuai_V1_0_2.zip
+          unzip -t Dashuai_V1_0_3_calendar_sync.zip
+          unzip -o Dashuai_V1_0_3_calendar_sync.zip
           cd Dale
           mkdir -p test-classes
           SRC=app/src/main/java/com/dale/todo
